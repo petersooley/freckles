@@ -9,6 +9,7 @@ Playground for all things lagom, akka, docker, cassandra, kafka, ...
 - [ ] Move kafka into a docker container and link to dev project
 - [ ] Build services into docker containers
 - [ ] Create the contacts service (below)
+- [ ] Run the whole thing on minikube
 - [ ] Come up with more goals
 
 ### Contact Service
