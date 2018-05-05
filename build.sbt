@@ -1,0 +1,31 @@
+scalaVersion in ThisBuild := "2.12.4"
+organization in ThisBuild := "com.elmdash.freckles"
+version in ThisBuild := "0.1.0-SNAPSHOT"
+
+lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.0.5"
+lazy val macwire = "com.softwaremill.macwire" %% "macros" % "2.3.0" % "provided"
+
+
+lazy val `freckles` = (project in file("."))
+  .aggregate(`contacts-api`, `contacts-impl`)
+
+lazy val `contacts-api` = (project in file("contacts-api"))
+  .settings(
+    libraryDependencies ++= Seq(
+      lagomScaladslApi
+    )
+  )
+
+lazy val `contacts-impl` = (project in file("contacts-impl"))
+  .enablePlugins(LagomScala)
+  .settings(
+    libraryDependencies ++= Seq(
+      lagomScaladslPersistenceCassandra,
+      lagomScaladslKafkaBroker,
+      lagomScaladslTestKit,
+      macwire,
+      scalaTest
+    )
+  )
+  .settings(lagomForkedTestSettings: _*)
+  .dependsOn(`contacts-api`)
