@@ -24,7 +24,6 @@ trait ContactsService extends Service {
 
   override final def descriptor = {
     import Service._
-    // @formatter:off
     named("hello")
       .withCalls(
         pathCall("/api/hello/:id", hello _),
@@ -37,13 +36,12 @@ trait ContactsService extends Service {
           // go to the same partition (and hence are delivered in order with respect
           // to that user), we configure a partition key strategy that extracts the
           // name as the partition key.
-          .addProperty(
+        .addProperty(
           KafkaProperties.partitionKeyStrategy,
           PartitionKeyStrategy[GreetingMessageChanged](_.name)
         )
       )
       .withAutoAcl(true)
-    // @formatter:on
   }
 }
 
