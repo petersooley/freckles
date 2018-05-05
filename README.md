@@ -4,7 +4,7 @@ Playground for all things lagom, akka, docker, cassandra, kafka, ...
 
 ### Goals
 
-- [ ] Start with a basic lagom project
+- [x] Start with a basic lagom project
 - [ ] Move cassandra into a docker container and link to dev project
 - [ ] Move kafka into a docker container and link to dev project
 - [ ] Build services into docker containers
