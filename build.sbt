@@ -2,6 +2,9 @@ scalaVersion in ThisBuild := "2.12.4"
 organization in ThisBuild := "com.elmdash.freckles"
 version in ThisBuild := "0.1.0-SNAPSHOT"
 
+lagomCassandraEnabled in ThisBuild := false
+lagomUnmanagedServices in ThisBuild := Map("cas_native" -> "http://172.19.0.2:9042")
+
 lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.0.5"
 lazy val macwire = "com.softwaremill.macwire" %% "macros" % "2.3.0" % "provided"
 
