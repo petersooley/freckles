@@ -5,10 +5,10 @@ Playground for all things lagom, akka, docker, cassandra, kafka, ...
 ### Goals
 
 - [x] Start with a basic lagom project
-- [ ] Move cassandra into a docker container and link to dev project
-- [ ] Move kafka into a docker container and link to dev project
-- [ ] Build services into docker containers
+- [x] Move cassandra into a docker container and link to dev project
+- [x] Move kafka into a docker container and link to dev project
 - [ ] Create the contacts service (below)
+- [ ] Build services into docker containers
 - [ ] Run the whole thing on minikube
 - [ ] Come up with more goals
 
