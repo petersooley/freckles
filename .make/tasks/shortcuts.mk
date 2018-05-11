@@ -1,5 +1,8 @@
-TASKS += shortcuts
+TASKS += cqlsh container-ips
 USAGE += .shortcuts-usage
+
+container-ips:
+	docker inspect -f '{{.Name}} {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $$(docker ps -q)
 
 cqlsh:
 	docker run -it --link freckles_cassandra_1:cassandra --net freckles_default --rm cassandra cqlsh cassandra
