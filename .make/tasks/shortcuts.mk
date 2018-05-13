@@ -8,4 +8,5 @@ cqlsh:
 	docker run -it --link freckles_cassandra_1:cassandra --net freckles_default --rm cassandra cqlsh cassandra
 
 .shortcuts-usage:
-	$(call describe,"shortcuts","lengthy un-rememberable commands")
+	$(call describe,"cqlsh","connect to cassandra in cqlsh")
+	$(call describe,"container-ips","list IP addresses for the currently running containers")
