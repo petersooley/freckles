@@ -29,12 +29,6 @@ abstract class ContactsApplication(context: LagomApplicationContext)
     with LagomKafkaComponents
     with AhcWSComponents {
 
-  // Bind the service that this server provides
   override lazy val lagomServer = serverFor[ContactsService](wire[ContactsServiceImpl])
-
-  // Register the JSON serializer registry
-  override lazy val jsonSerializerRegistry = HelloSerializerRegistry
-
-  // Register the Hello persistent entity
-  persistentEntityRegistry.register(wire[HelloEntity])
+  override lazy val jsonSerializerRegistry = ContactSerializerRegistry
 }

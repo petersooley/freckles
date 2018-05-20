@@ -1,44 +1,23 @@
 package com.elmdash.freckles.contacts.impl
 
-import com.elmdash.freckles.contacts.api
-import com.elmdash.freckles.contacts.api.{ContactsService}
+import java.util.UUID
+
+import com.elmdash.freckles.contacts.api.Contact
+import com.elmdash.freckles.contacts.api.ContactsService
 import com.lightbend.lagom.scaladsl.api.ServiceCall
-import com.lightbend.lagom.scaladsl.api.broker.Topic
-import com.lightbend.lagom.scaladsl.broker.TopicProducer
-import com.lightbend.lagom.scaladsl.persistence.{EventStreamElement, PersistentEntityRegistry}
+import scala.collection.immutable.Seq
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
-/**
-  * Implementation of the HelloService.
-  */
-class ContactsServiceImpl(persistentEntityRegistry: PersistentEntityRegistry) extends ContactsService {
-
-  override def hello(id: String) = ServiceCall { _ =>
-    // Look up the Hello entity for the given ID.
-    val ref = persistentEntityRegistry.refFor[HelloEntity](id)
-
-    // Ask the entity the Hello command.
-    ref.ask(Hello(id))
-  }
-
-  override def useGreeting(id: String) = ServiceCall { request =>
-    // Look up the Hello entity for the given ID.
-    val ref = persistentEntityRegistry.refFor[HelloEntity](id)
-
-    // Tell the entity to use the greeting message specified.
-    ref.ask(UseGreetingMessage(request.message))
-  }
+class ContactsServiceImpl extends ContactsService {
 
 
-  override def greetingsTopic(): Topic[api.GreetingMessageChanged] =
-    TopicProducer.singleStreamWithOffset {
-      fromOffset =>
-        persistentEntityRegistry.eventStream(HelloEvent.Tag, fromOffset)
-          .map(ev => (convertEvent(ev), ev.offset))
-    }
-
-  private def convertEvent(helloEvent: EventStreamElement[HelloEvent]): api.GreetingMessageChanged = {
-    helloEvent.event match {
-      case GreetingMessageChanged(msg) => api.GreetingMessageChanged(helloEvent.entityId, msg)
+  override def listContacts(uuid: UUID) = ServiceCall {
+    _ => Future {
+      Seq(
+        Contact(UUID.randomUUID(), Option(UUID.randomUUID()), None),
+        Contact(UUID.randomUUID(), None, Option("test@test.com"))
+      )
     }
   }
 }
